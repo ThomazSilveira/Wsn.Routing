@@ -7,6 +7,8 @@
 
 using namespace std;
 
+
+
 double CalculaA(Ponto P1, Ponto P2)
 {
 	return ((P1.Y - P2.Y) / (P1.X - P2.X));
@@ -177,7 +179,23 @@ vector<Ponto> RetiraValoresDuplicados(vector <Ponto> pontos)
 
 int main(int argc, char *argv[])
 {
-	/*Pontos de teste 1,, no qual P1 é menor em X e em Y comparado com o P2*/
+	const int linha = 12;
+	const int coluna = 38;
+	int mapa[linha][coluna];
+
+	for (int i = 0; i < linha; i++) {
+		for (int j = 0; j < coluna; j++) {
+			if (i+j == 41) {
+				mapa[i][j] = 1;
+			} else if (i+19 == j) {
+				mapa[i][j] = 2;
+			}
+			else mapa[i][j] = 0;
+
+		}
+	}
+
+	/*Pontos de teste 1*/
 	Ponto *p1 = new Ponto(0.8, 0.8);
 	Ponto *p2 = new Ponto(2.7, 1.3);
 
