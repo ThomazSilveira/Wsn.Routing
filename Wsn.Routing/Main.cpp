@@ -139,13 +139,24 @@ struct myclass {
 	bool operator() (Ponto i, Ponto j) { return (i.X < j.X); }
 } myobject;
 
+vector<double> CalculaDistancias(vector <Ponto> pontos)
+{
+	vector<double> distancias(pontos.size() - 1);
+
+	for (int i = 0; i < pontos.size() - 1; i++)
+	{
+		distancias[i] = sqrt(pow((pontos[i].X - pontos[i + 1].X), 2) + pow((pontos[i].Y - pontos[i + 1].Y), 2));
+	}
+
+	return distancias;
+}
 
 
 int main(int argc, char *argv[])
 {
 	/*Pontos de teste 1*/
-	Ponto *p1 = new Ponto(3.8, 0.8);
-	Ponto *p2 = new Ponto(9.7, 1.3);
+	Ponto *p1 = new Ponto(0.8, 0.8);
+	Ponto *p2 = new Ponto(2.7, 1.3);
 
 	/*Pontos de teste 2*/
 	//Ponto *p1 = new Ponto(5.2, 0.8);
@@ -168,7 +179,8 @@ int main(int argc, char *argv[])
 	/*TODO: excluir valores repetidos do vector {Pontos}, e ficar em duvida sobre o pq disso deixa q eu faço depis nao vamo perde tempo tentando compreender oq ja foi feito kkkk*/
 
 	/*TODO: realizar o calculo de para cada dois pontos da lista calcular sqrt( abs(p1.x - p2.x) + abs( p1.y - p2.y) ), e colocar em um vetor */
-
+	vector<double> distancias;
+	distancias = CalculaDistancias(Pontos);
 	/*TODO: funcao que descobre os indicies da matriz que deve se pego o rssi para cada ponto em questão, e colocar em um vetor*/
 
 	/*TODO: com o vetor dos indicies e o vetor dos rssi's realizar o calculo final.*/
