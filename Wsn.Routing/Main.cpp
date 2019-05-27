@@ -4,10 +4,13 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include "conexao.h"
 
 using namespace std;
 
-
+const int linha = 6;
+const int coluna = 6;
+double mapa[linha][coluna];
 
 double CalculaA(Ponto P1, Ponto P2)
 {
@@ -62,7 +65,6 @@ vector<Ponto> CalculaPontosEmXY(Ponto P1, Ponto P2, double a, double b)
 	if (P1.X > P2.X)
 	{
 		int valor = (int)floor(retorno[0].X);
-		//for (int i = 0; i < floor(P1.X) - floor(P2.X) + 1; i++)
 		for (int i = 0; i < floor(P1.X) - floor(P2.X); i++)
 		{
 			retorno[index] = *new Ponto(valor, 0);
@@ -89,7 +91,7 @@ vector<Ponto> CalculaPontosEmXY(Ponto P1, Ponto P2, double a, double b)
 	if (P1.Y > P2.Y)
 	{
 		int valor = (int)floor(retorno[0].Y);
-		for (int i = 0; i < floor(P1.Y) - floor(P2.Y) + 1; i++)
+		for (int i = 0; i < floor(P1.Y) - floor(P2.Y); i++)
 		{
 			retorno[index] = *new Ponto(0, valor);
 			retorno[index].X = CalculaX(retorno[index], a, b);
@@ -159,7 +161,7 @@ vector<Ponto> CalculaIndiciesDaMatriz(vector <Ponto> pontos)
 
 	for (int i = 0; i < pontos.size() - 1; i++)
 	{
-		distancias[i] = *new Ponto(floor(pontos[i].X),floor(pontos[i].Y));
+		distancias[i] = *new Ponto(floor(pontos[i].X), floor(pontos[i].Y));
 	}
 
 	return distancias;
@@ -177,70 +179,27 @@ vector<Ponto> RetiraValoresDuplicados(vector <Ponto> pontos)
 	return distancias;
 }
 
-int main(int argc, char *argv[])
+double CalculaSigma(Ponto P1, Ponto P2)
 {
-	const int linha = 12;
-	const int coluna = 38;
-	int mapa[linha][coluna];
-
-	for (int i = 0; i < linha; i++) {
-		for (int j = 0; j < coluna; j++) {
-			if (i+j == 41) {
-				mapa[i][j] = 1;
-			} else if (i+19 == j) {
-				mapa[i][j] = 2;
-			}
-			else mapa[i][j] = 0;
-
-		}
-	}
-
-	/*Pontos de teste 1*/
-	Ponto *p1 = new Ponto(0.8, 0.8);
-	Ponto *p2 = new Ponto(2.7, 1.3);
-
-	/*Pontos de teste 2, no qual P1 é maior em X e menor Y comparado com o P2 Obs.: neste caso ira gerar valor duplicado pq tanto em X e em Y as barreiras colidem igual*/
-	//Ponto *p1 = new Ponto(5.2, 0.8);
-	//Ponto *p2 = new Ponto(2.2, 1.3);
-
-	/*Pontos de teste 3, no qual P1 é menor em X e maior em Y comparado com o P2*/
-	//Ponto *p1 = new Ponto(0.8, 2.7);
-	//Ponto *p2 = new Ponto(5.2, 1.1);
-
-	/*Pontos de teste 4, no qual P1 é maior em X e em Y comparado com o P2*/
-	//Ponto *p1 = new Ponto(5.2, 1.3);
-	//Ponto *p2 = new Ponto(2.2, 0.8);
-
-	/*Pontos de teste 5, no qual caminha só em X*/
-	//Ponto *p1 = new Ponto(1.3, 5.4);
-	//Ponto *p2 = new Ponto(6.2, 5.4);
-
-	/*Pontos de teste 5, no qual caminha só em Y*/
-	//Ponto *p1 = new Ponto(2.1, 3.8);
-	//Ponto *p2 = new Ponto(2.1, 7.2);
-
-
 	/*Calcula A da equacao da reta*/
-	double a = CalculaA(*p1, *p2);
+	double a = CalculaA(P1, P2);
 	/*Calcula B da equacao da reta*/
-	double b = CalculaB(*p1, a);
+	double b = CalculaB(P1, a);
 
 	/*verificacao se P1.X > P2.X && P1.Y > P2.Y, se sim entao deve alterar de posicao P1=P2 e P2=P1, pois nao cobri o caso em que P1 é maior que P2 em ambas direcoes justamente pq poderia ser corrigido apenas invertendo-os. Demais casos o algoritmo já trata.*/
-	if (p1->X > p2->X && p1->Y > p2->Y)
+	if (P1.X > P2.X && P1.Y > P2.Y)
 	{
-		Ponto *pAux = p1;
-		p1 = p2;
-		p2 = pAux;
+		Ponto *pAux = &P1;
+		P1 = P2;
+		P2 = *pAux;
 	}
 
 	/*lista com os pontos a serem calculados, agora basta ordenar pelos valores de X*/
 	vector<Ponto> Pontos;
-	Pontos = CalculaPontosEmXY(*p1, *p2, a, b);
+	Pontos = CalculaPontosEmXY(P1, P2, a, b);
 
 	/*Ordena o vetor pelos valores de X*/
 	std::sort(Pontos.begin(), Pontos.end(), myobject);
-
-	/*TODO: excluir valores repetidos do vector {Pontos}, e ficar em duvida sobre o pq disso deixa q eu faço depis nao vamo perde tempo tentando compreender oq ja foi feito kkkk*/
 
 	/*calculo de para cada dois pontos da lista calcular sqrt( abs(p1.x - p2.x) + abs( p1.y - p2.y) ), e colocar em um vetor */
 	vector<double> distancias;
@@ -251,9 +210,73 @@ int main(int argc, char *argv[])
 	indiciesDaMatriz = CalculaIndiciesDaMatriz(Pontos);
 
 	/*TODO: pegar na matriz os valores de rssi dos indicies definidos no vetor indiciesDaMatriz*/
-
+	vector<double> rssis(indiciesDaMatriz.size());
+	for (int i = 0; i < indiciesDaMatriz.size(); i++)
+	{
+		rssis[i] = mapa[(int)indiciesDaMatriz[i].X][(int)indiciesDaMatriz[i].Y];
+	}
 
 	/*TODO: com o vetor dos indicies e o vetor dos rssi's realizar o calculo final do coeficiente.*/
+	double sigma = 0.0;
+	for (int i = 0; i < distancias.size(); i++)
+	{
+		sigma += distancias[i] * rssis[i];
+	}
 
+	return sigma;
+}
+
+int main(int argc, char *argv[])
+{
+
+	for (int i = 0; i < linha; i++) {
+		for (int j = 0; j < coluna; j++) {
+			mapa[i][j] = 0.1;
+		}
+	}
+
+	mapa[2][0] = 1;
+	mapa[2][1] = 1;
+	mapa[3][1] = 1;
+	mapa[3][0] = 2;
+	mapa[4][1] = 1;
+	mapa[4][0] = 1;
+
+	mapa[5][1] = 1;
+	mapa[4][2] = 1;
+	mapa[4][3] = 1;
+	mapa[5][3] = 1;
+	mapa[5][2] = 2;
+
+
+	/*Ponto C1*/
+	Ponto *c1 = new Ponto(0.8, 2.2);
+
+	/*Ponto N1*/
+	Ponto *n1 = new Ponto(2.2, 0.3);
+
+	/*Ponto N2*/
+	Ponto *n2 = new Ponto(2.1, 4.3);
+
+	/*Ponto N3*/
+	Ponto *n3 = new Ponto(5.2, 0.2);
+
+	/*Ponto N4*/
+	Ponto *n4 = new Ponto(5.4, 4.2);
+
+	vector<conexao> conexoes(8);
+	conexoes[0] = *new conexao(*c1, *n1);
+	conexoes[1] = *new conexao(*c1, *n2);
+	conexoes[2] = *new conexao(*n1, *n2);
+	conexoes[3] = *new conexao(*n1, *n3);
+	conexoes[4] = *new conexao(*n2, *n4);
+	conexoes[5] = *new conexao(*n3, *n4);
+	conexoes[6] = *new conexao(*n1, *n4);
+	conexoes[7] = *new conexao(*n2, *n3);
+
+	vector<double> sigmas(conexoes.size());
+
+	for (int i = 0; i < conexoes.size(); i++)
+		sigmas[i] = CalculaSigma(conexoes[i].P1, conexoes[i].P2);
 
 }

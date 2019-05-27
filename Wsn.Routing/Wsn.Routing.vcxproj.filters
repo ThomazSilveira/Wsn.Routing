@@ -21,9 +21,15 @@
     <ClCompile Include="Ponto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="conexao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ponto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conexao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

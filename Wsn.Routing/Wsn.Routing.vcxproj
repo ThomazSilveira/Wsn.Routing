@@ -115,10 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="conexao.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Ponto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="conexao.h" />
     <ClInclude Include="Ponto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
