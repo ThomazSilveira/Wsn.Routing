@@ -1,10 +1,11 @@
-#include<stdio.h>
+#include <iostream>		// cout
+#include <cmath>		// floor, ceiling, sqrt, pow
+#include <cstdlib> 		// abs
+#include <vector>		// vector<>
+#include <algorithm>	// sort
 #include "Ponto.h"
-#include <math.h>
-#include <cstdlib>
-#include <vector>
-#include <algorithm>
 #include "conexao.h"
+#include "Graph.h"
 
 using namespace std;
 
@@ -186,7 +187,7 @@ double CalculaSigma(Ponto P1, Ponto P2)
 	/*Calcula B da equacao da reta*/
 	double b = CalculaB(P1, a);
 
-	/*verificacao se P1.X > P2.X && P1.Y > P2.Y, se sim entao deve alterar de posicao P1=P2 e P2=P1, pois nao cobri o caso em que P1 é maior que P2 em ambas direcoes justamente pq poderia ser corrigido apenas invertendo-os. Demais casos o algoritmo já trata.*/
+	/*verificacao se P1.X > P2.X && P1.Y > P2.Y, se sim entao deve alterar de posicao P1=P2 e P2=P1, pois nao cobri o caso em que P1 ï¿½ maior que P2 em ambas direcoes justamente pq poderia ser corrigido apenas invertendo-os. Demais casos o algoritmo jï¿½ trata.*/
 	if (P1.X > P2.X && P1.Y > P2.Y)
 	{
 		Ponto *pAux = &P1;
@@ -205,7 +206,7 @@ double CalculaSigma(Ponto P1, Ponto P2)
 	vector<double> distancias;
 	distancias = CalculaDistancias(Pontos);
 
-	/*indicies da matriz que deve ser pego o rssi para cada ponto em questão, e colocar em um vetor*/
+	/*indicies da matriz que deve ser pego o rssi para cada ponto em questï¿½o, e colocar em um vetor*/
 	vector<Ponto> indiciesDaMatriz;
 	indiciesDaMatriz = CalculaIndiciesDaMatriz(Pontos);
 
@@ -226,6 +227,7 @@ double CalculaSigma(Ponto P1, Ponto P2)
 	return sigma;
 }
 
+// ::MAIN::
 int main(int argc, char *argv[])
 {
 
@@ -276,7 +278,27 @@ int main(int argc, char *argv[])
 
 	vector<double> sigmas(conexoes.size());
 
-	for (int i = 0; i < conexoes.size(); i++)
+	for (int i = 0; i < conexoes.size(); i++) {
 		sigmas[i] = CalculaSigma(conexoes[i].P1, conexoes[i].P2);
+	}
 
+	// Cria grafo com V nodos
+    int V = 5; 
+    Graph g(V);
+
+	// Cria vertices no grafo
+	// E.g. Nodo 0 com Nodo 1, distancia de 2.36
+	g.addEdge(0, 1, 2.36008474424119);
+    g.addEdge(0, 2, 2.46981780704569);
+    g.addEdge(1, 2, 4.00124980474851);
+    g.addEdge(1, 3, 3.00166620396073);
+    g.addEdge(2, 4, 3.30151480384384);
+    g.addEdge(3, 4, 4.00499687890016);
+    g.addEdge(1, 4, 5.04479930225178);
+    g.addEdge(2, 3, 5.14003891035856);
+
+	// Encontra menores caminhos
+	// Partindo do Nodo 0
+    g.shortestPath(0);
+	
 }
