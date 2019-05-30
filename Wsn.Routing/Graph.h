@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
-#include <bits/stdc++.h>
+#include <list>
+#include <queue>
+#include <iomanip>
 
 #define INF 0x3f3f3f3f
 

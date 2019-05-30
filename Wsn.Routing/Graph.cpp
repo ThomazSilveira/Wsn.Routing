@@ -1,6 +1,5 @@
 #include "Graph.h"
 
-// Allocates memory for adjacency list 
 Graph::Graph(int V) 
 { 
     this->V = V; 
@@ -18,10 +17,8 @@ void Graph::addEdge(int u, int v, long double w)
 // Prints shortest paths from src to all other vertices 
 void Graph::shortestPath(int src) 
 { 
-    // Create a priority queue to store vertices
     std::priority_queue< iPair, std::vector <iPair> , std::greater<iPair> > pq;
 
-    // Create a vector for distances and initialize all
     std::vector<long double> dist(V, INF); 
   
     // Initialize priority queue values all with 0 distances.
@@ -63,7 +60,8 @@ void Graph::shortestPath(int src)
     } 
   
     // Print shortest distances stored in dist[] 
-    printf("Vertex   Distance from Source\n"); 
-    for (int i = 0; i < V; ++i) 
-        printf("%d \t\t %Lf\n", i, dist[i]); 
+    std::cout << "Vertex   Distance from Source" << std::setprecision(17) << std::endl;
+    for (int i = 0; i < V; ++i) {
+        std::cout << i << "\t\t" << dist[i] << std::endl;
+    }
 }
