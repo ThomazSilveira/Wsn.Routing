@@ -1,6 +1,6 @@
 #include <iostream>		// cout
-#include <cmath>		// floor, ceiling, sqrt, pow
-#include <cstdlib> 		// abs
+#include <cmath>		// floor, ceiling, sqrt, pow, fmod
+//#include <cstdlib> 		// abs
 #include <vector>		// vector<>
 #include <algorithm>	// sort
 #include "Ponto.h"
@@ -160,10 +160,67 @@ vector<Ponto> CalculaIndiciesDaMatriz(vector <Ponto> pontos)
 {
 	vector<Ponto> distancias(pontos.size() - 1);
 
-	for (int i = 0; i < pontos.size() - 1; i++)
+	distancias[0] = *new Ponto(floor(pontos[0].X), floor(pontos[0].Y));
+
+	double valX = 0.0;
+	double valY = 0.0;
+
+	for (int i = 1; i < pontos.size() - 1; i++)
 	{
-		distancias[i] = *new Ponto(floor(pontos[i].X), floor(pontos[i].Y));
+		if (floor(pontos[i - 1].X) == floor(pontos[i].X) && (ceil(pontos[i].X) != floor(pontos[i].X)))
+			valX = floor(pontos[i].X);
+		else
+			valX = floor(pontos[i + 1].X);
+
+		if (floor(pontos[i - 1].Y) == floor(pontos[i].Y) && (ceil(pontos[i].Y) != floor(pontos[i].Y)))
+			valY = floor(pontos[i].Y);
+		else
+			valY = floor(pontos[i + 1].Y);
+
+		distancias[i] = *new Ponto(valX, valY);
 	}
+
+	//for (int i = 1; i < distancias.size() -1; i++)
+	//{
+	//	/*se sim entao tem erro*/
+	//	if (distancias[i].X == distancias[i + 1].X && distancias[i].Y == distancias[i + 1].Y)
+	//	{
+	//		/*descobrir se eh em X ou em Y*/
+	//		if (distancias[i - 1].X == distancias[i].X) /*tem erro no Y*/
+	//		{
+	//			if (distancias[i - 1].Y > distancias[i].Y)
+	//				distancias[i].Y = distancias[i].Y + 1;
+	//			else
+	//				distancias[i].Y = distancias[i].Y - 1;
+	//		}
+	//		else /*tem erro no X*/
+	//		{
+	//			if (distancias[i - 1].X > distancias[i].X)
+	//				distancias[i].X = distancias[i].X + 1;
+	//			else
+	//				distancias[i].X = distancias[i].X - 1;
+	//		}
+	//	}
+	//}
+
+	for (int i = 1; i < distancias.size() - 1; i++)
+	{
+		if (abs(distancias[i - 1].X - distancias[i].X) > 1)
+		{
+			if (distancias[i].X > distancias[i - 1].X)
+				distancias[i].X = distancias[i].X - 1;
+			else
+				distancias[i].X = distancias[i].X + 1;
+		}
+		if (abs(distancias[i - 1].Y - distancias[i].Y) > 1)
+		{
+			if (distancias[i].Y > distancias[i - 1].Y)
+				distancias[i].Y = distancias[i].Y - 1;
+			else
+				distancias[i].Y = distancias[i].Y + 1;
+		}
+	}
+
 
 	return distancias;
 }
@@ -209,15 +266,16 @@ double CalculaSigma(Ponto P1, Ponto P2)
 	/*indicies da matriz que deve ser pego o rssi para cada ponto em quest�o, e colocar em um vetor*/
 	vector<Ponto> indiciesDaMatriz;
 	indiciesDaMatriz = CalculaIndiciesDaMatriz(Pontos);
-
-	/*TODO: pegar na matriz os valores de rssi dos indicies definidos no vetor indiciesDaMatriz*/
+	//vector<Ponto> indiciesDaMatrizCorrigidos;
+	//indiciesDaMatrizCorrigidos = CorrigeIndiciesDaMatriz(indiciesDaMatriz);
+	/*pegar na matriz os valores de rssi dos indicies definidos no vetor indiciesDaMatriz*/
 	vector<double> rssis(indiciesDaMatriz.size());
 	for (int i = 0; i < indiciesDaMatriz.size(); i++)
 	{
 		rssis[i] = mapa[(int)indiciesDaMatriz[i].X][(int)indiciesDaMatriz[i].Y];
 	}
 
-	/*TODO: com o vetor dos indicies e o vetor dos rssi's realizar o calculo final do coeficiente.*/
+	/*com o vetor dos indicies e o vetor dos rssi's realizar o calculo final do coeficiente.*/
 	double sigma = 0.0;
 	for (int i = 0; i < distancias.size(); i++)
 	{
@@ -283,22 +341,22 @@ int main(int argc, char *argv[])
 	}
 
 	// Cria grafo com V nodos
-    int V = 5; 
-    Graph g(V);
+	int V = 5;
+	Graph g(V);
 
 	// Cria vertices no grafo
 	// E.g. Nodo 0 com Nodo 1, distancia de 2.36
 	g.addEdge(0, 1, 2.36008474424119);
-    g.addEdge(0, 2, 2.46981780704569);
-    g.addEdge(1, 2, 4.00124980474851);
-    g.addEdge(1, 3, 3.00166620396073);
-    g.addEdge(2, 4, 3.30151480384384);
-    g.addEdge(3, 4, 4.00499687890016);
-    g.addEdge(1, 4, 5.04479930225178);
-    g.addEdge(2, 3, 5.14003891035856);
+	g.addEdge(0, 2, 2.46981780704569);
+	g.addEdge(1, 2, 4.00124980474851);
+	g.addEdge(1, 3, 3.00166620396073);
+	g.addEdge(2, 4, 3.30151480384384);
+	g.addEdge(3, 4, 4.00499687890016);
+	g.addEdge(1, 4, 5.04479930225178);
+	g.addEdge(2, 3, 5.14003891035856);
 
 	// Encontra menores caminhos
 	// Partindo do Nodo 0
-    g.shortestPath(0);
-	
+	g.shortestPath(0);
+
 }
