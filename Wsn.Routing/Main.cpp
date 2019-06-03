@@ -237,6 +237,21 @@ vector<Ponto> RetiraValoresDuplicados(vector <Ponto> pontos)
 	return distancias;
 }
 
+vector<double> CalculaDistancias(vector<conexao> conexoes)
+{
+	vector<double> distancias(conexoes.size());
+
+	for (int i = 0; i < conexoes.size(); i++)
+	{
+		vector<Ponto> pontos(2);
+		pontos[0] = conexoes[i].P1;
+		pontos[1] = conexoes[i].P2;
+		distancias[i] = CalculaDistancias(pontos)[0];
+	}
+
+	return distancias;
+}
+
 double CalculaSigma(Ponto P1, Ponto P2)
 {
 	/*Calcula A da equacao da reta*/
@@ -308,6 +323,7 @@ int main(int argc, char *argv[])
 	mapa[5][3] = 1;
 	mapa[5][2] = 2;
 
+	printf("dd");
 
 	/*Ponto C1*/
 	Ponto *c1 = new Ponto(0.8, 2.2);
@@ -340,23 +356,37 @@ int main(int argc, char *argv[])
 		sigmas[i] = CalculaSigma(conexoes[i].P1, conexoes[i].P2);
 	}
 
+	vector<double> distancias(8);
+	distancias = CalculaDistancias(conexoes);
+
 	// Cria grafo com V nodos
 	int V = 5;
 	Graph g(V);
 
 	// Cria vertices no grafo
 	// E.g. Nodo 0 com Nodo 1, distancia de 2.36
-	g.addEdge(0, 1, 2.36008474424119);
+	/*g.addEdge(0, 1, 2.36008474424119);
 	g.addEdge(0, 2, 2.46981780704569);
 	g.addEdge(1, 2, 4.00124980474851);
 	g.addEdge(1, 3, 3.00166620396073);
 	g.addEdge(2, 4, 3.30151480384384);
 	g.addEdge(3, 4, 4.00499687890016);
 	g.addEdge(1, 4, 5.04479930225178);
-	g.addEdge(2, 3, 5.14003891035856);
+	g.addEdge(2, 3, 5.14003891035856);*/
+
+	g.addEdge(0, 1, sigmas[0]);
+	g.addEdge(0, 2, sigmas[1]);
+	g.addEdge(1, 2, sigmas[2]);
+	g.addEdge(1, 3, sigmas[3]);
+	g.addEdge(2, 4, sigmas[4]);
+	g.addEdge(3, 4, sigmas[5]);
+	g.addEdge(1, 4, sigmas[6]);
+	g.addEdge(2, 3, sigmas[7]);
 
 	// Encontra menores caminhos
 	// Partindo do Nodo 0
 	g.shortestPath(0);
 
+	char h;
+	cin >> h;
 }

@@ -1,5 +1,7 @@
 #include "Graph.h"
 
+using namespace std;
+
 Graph::Graph(int V) 
 { 
     this->V = V; 
@@ -53,14 +55,15 @@ void Graph::shortestPath(int src)
             if (dist[v] > dist[u] + weight) 
             { 
                 // Updating distance of v 
-                dist[v] = dist[u] + weight; 
-                pq.push(std::make_pair(dist[v], v)); 
-            } 
-        } 
+                dist[v] = dist[u] + weight;
+                pq.push(std::make_pair(dist[v], v));
+				std::cout << endl << u << "\t" << v << "\t" << weight << "\t" ;
+            }
+        }
     } 
   
     // Print shortest distances stored in dist[] 
-    std::cout << "Vertex   Distance from Source" << std::setprecision(17) << std::endl;
+    std::cout << endl << "Vertex   Distance from Source" << std::setprecision(17) << std::endl;
     for (int i = 0; i < V; ++i) {
         std::cout << i << "\t\t" << dist[i] << std::endl;
     }
