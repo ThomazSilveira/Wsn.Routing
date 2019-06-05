@@ -365,6 +365,7 @@ int main(int argc, char *argv[])
 
 	// Cria vertices no grafo
 	// E.g. Nodo 0 com Nodo 1, distancia de 2.36
+
 	/*g.addEdge(0, 1, 2.36008474424119);
 	g.addEdge(0, 2, 2.46981780704569);
 	g.addEdge(1, 2, 4.00124980474851);
@@ -386,6 +387,10 @@ int main(int argc, char *argv[])
 	// Encontra menores caminhos
 	// Partindo do Nodo 0
 	g.shortestPath(0);
+
+	g.PrintPathNodes();
+
+	g.PrintDistances();
 
 	char h;
 	cin >> h;
