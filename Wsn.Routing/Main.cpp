@@ -1,11 +1,11 @@
 #include <iostream>		// cout
 #include <cmath>		// floor, ceiling, sqrt, pow, fmod
-//#include <cstdlib> 		// abs
 #include <vector>		// vector<>
 #include <algorithm>	// sort
 #include "Ponto.h"
 #include "conexao.h"
 #include "Graph.h"
+#include "InputClass.h"
 
 using namespace std;
 
@@ -300,9 +300,9 @@ double CalculaSigma(Ponto P1, Ponto P2)
 	return sigma;
 }
 
-// ::MAIN::
-int main(int argc, char *argv[])
+InputClass DadosSinteticos1()
 {
+	return *new InputClass();
 
 	for (int i = 0; i < linha; i++) {
 		for (int j = 0; j < coluna; j++) {
@@ -322,8 +322,6 @@ int main(int argc, char *argv[])
 	mapa[4][3] = 1;
 	mapa[5][3] = 1;
 	mapa[5][2] = 2;
-
-	printf("dd");
 
 	/*Ponto C1*/
 	Ponto *c1 = new Ponto(0.8, 2.2);
@@ -349,6 +347,88 @@ int main(int argc, char *argv[])
 	conexoes[5] = *new conexao(*n3, *n4);
 	conexoes[6] = *new conexao(*n1, *n4);
 	conexoes[7] = *new conexao(*n2, *n3);
+
+}
+
+InputClass DadosSinteticos2()
+{
+	return *new InputClass();
+}
+
+InputClass InicializaValoresSinteticos(int index)
+{
+	InputClass inputClass;
+
+	switch (index)
+	{
+	case 0:
+		inputClass = DadosSinteticos1();
+		break;
+	case 1:
+		inputClass = DadosSinteticos2();
+		break;
+	default:
+		NULL;
+		break;
+	}
+
+	return inputClass;
+}
+
+// ::MAIN::
+int main(int argc, char *argv[])
+{
+	InputClass input;
+	/**/
+	input = InicializaValoresSinteticos(0);
+	/**/
+
+
+	for (int i = 0; i < linha; i++) {
+		for (int j = 0; j < coluna; j++) {
+			mapa[i][j] = 0.1;
+		}
+	}
+
+	mapa[2][0] = 1;
+	mapa[2][1] = 1;
+	mapa[3][1] = 1;
+	mapa[3][0] = 2;
+	mapa[4][1] = 1;
+	mapa[4][0] = 1;
+
+	mapa[5][1] = 1;
+	mapa[4][2] = 1;
+	mapa[4][3] = 1;
+	mapa[5][3] = 1;
+	mapa[5][2] = 2;
+
+	/*Ponto C1*/
+	Ponto *c1 = new Ponto(0.8, 2.2);
+
+	/*Ponto N1*/
+	Ponto *n1 = new Ponto(2.2, 0.3);
+
+	/*Ponto N2*/
+	Ponto *n2 = new Ponto(2.1, 4.3);
+
+	/*Ponto N3*/
+	Ponto *n3 = new Ponto(5.2, 0.2);
+
+	/*Ponto N4*/
+	Ponto *n4 = new Ponto(5.4, 4.2);
+
+	vector<conexao> conexoes(8);
+	conexoes[0] = *new conexao(*c1, *n1);
+	conexoes[1] = *new conexao(*c1, *n2);
+	conexoes[2] = *new conexao(*n1, *n2);
+	conexoes[3] = *new conexao(*n1, *n3);
+	conexoes[4] = *new conexao(*n2, *n4);
+	conexoes[5] = *new conexao(*n3, *n4);
+	conexoes[6] = *new conexao(*n1, *n4);
+	conexoes[7] = *new conexao(*n2, *n3);
+
+	
 
 	vector<double> sigmas(conexoes.size());
 
@@ -394,4 +474,11 @@ int main(int argc, char *argv[])
 
 	char h;
 	cin >> h;
+
+	/*Todo: nodo se afastando*/
+
+	/*Todo: nodo voltando*/
+
+	/*Todo: fazer classe de entrada e de saida.*/
+
 }

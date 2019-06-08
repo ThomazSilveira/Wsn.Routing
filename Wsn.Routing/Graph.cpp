@@ -68,8 +68,12 @@ void Graph::shortestPath(int src)
 #ifdef _DEBUG
 				std::cout << endl << u << "\t" << v << "\t" << weight << "\t";
 #endif
+
 			}
 		}
+
+		/*after calculated all better adjacent node, it's time to calculaing the complete rout*/
+
 	}
 
 	for (int i = 0; i < V; ++i) {
