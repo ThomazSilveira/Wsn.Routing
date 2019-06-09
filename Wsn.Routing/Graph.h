@@ -1,3 +1,6 @@
+/// 
+/// pego em: https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-using-priority_queue-stl/
+///
 #pragma once
 #include <iostream>
 #include <list>

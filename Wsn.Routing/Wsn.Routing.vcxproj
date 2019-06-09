@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Calculadora.cpp" />
     <ClCompile Include="conexao.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InputClass.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Ponto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculadora.h" />
     <ClInclude Include="conexao.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="InputClass.h" />
