@@ -241,16 +241,18 @@ vector<double> Calculadora::CalculaDistancias(vector<conexao> conexoes)
 	for (int i = 0; i < conexoes.size(); i++)
 	{
 		vector<Ponto> pontos(2);
-		pontos[0] = conexoes[i].P1;
-		pontos[1] = conexoes[i].P2;
+		pontos[0] = conexoes[i].N1.Coordenada;
+		pontos[1] = conexoes[i].N2.Coordenada;
 		distancias[i] = CalculaDistancias(pontos)[0];
 	}
 
 	return distancias;
 }
 
-double Calculadora::CalculaSigma(Ponto P1, Ponto P2)
+double Calculadora::CalculaSigma(Nodo n1, Nodo n2)
 {
+	Ponto P1 = n1.Coordenada;
+	Ponto P2 = n2.Coordenada;
 	/*Calcula A da equacao da reta*/
 	double a = CalculaA(P1, P2);
 	/*Calcula B da equacao da reta*/
@@ -303,7 +305,7 @@ vector<double> Calculadora::CalculaSigmas(InputClass input)
 
 	vector<double> sigmas(input.totalConexoes);
 	for (int i = 0; i < input.totalConexoes; i++) {
-		sigmas[i] = CalculaSigma(input.Conexoes[i].P1, input.Conexoes[i].P2);
+		sigmas[i] = CalculaSigma(input.Conexoes[i].N1, input.Conexoes[i].N2);
 	}
 	return sigmas;
 }

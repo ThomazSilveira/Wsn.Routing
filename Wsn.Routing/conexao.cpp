@@ -9,10 +9,10 @@ conexao::~conexao()
 {
 }
 
-conexao::conexao(Ponto p1, Ponto p2, char energia)
+conexao::conexao(Nodo n1, Nodo n2, char energia)
 {
-	P1 = p1;
-	P2 = p2;
+	this->N1 = n1;
+	this->N2 = n2;
 }
 
 char conexao::getEnergia()

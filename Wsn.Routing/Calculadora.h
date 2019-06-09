@@ -5,6 +5,7 @@
 #include <vector>		// vector<>
 #include "conexao.h"
 #include "InputClass.h"
+#include "Nodo.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ private:
 	vector<Ponto> CalculaIndiciesDaMatriz(vector <Ponto> pontos);
 public:
 	vector<double> CalculaDistancias(vector<conexao> conexoes);
-	double CalculaSigma(Ponto P1, Ponto P2);
+	double CalculaSigma(Nodo n1, Nodo n2);
 	vector<double> CalculaSigmas(InputClass input);
 	Calculadora();
 	~Calculadora();

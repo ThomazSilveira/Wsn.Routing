@@ -1,16 +1,18 @@
 #pragma once
 #include "Ponto.h"
+#include "Nodo.h"
+
 class conexao
 {
 	char energia;
 
 public:
-	Ponto P1;
-	Ponto P2;
+	Nodo N1;
+	Nodo N2;
 
 	conexao();
 	~conexao();
-	conexao(Ponto p1, Ponto p2, char energia);
+	conexao(Nodo n1, Nodo n2, char energia);
 
 	char getEnergia();
 	void setEnergia(char energia);

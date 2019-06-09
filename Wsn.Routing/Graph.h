@@ -7,7 +7,7 @@
 #include <queue>
 #include <iomanip>
 #include <string>
-
+#include "conexao.h"
 #define INF 0x3f3f3f3f
 
 typedef std::pair<int, long double> iPair;
@@ -23,6 +23,8 @@ public:
 	Graph(int V);
 
 	void addEdge(int u, int v, long double w);
+
+	void addEdges(conexao *conexoes, std::vector<double> weigths);
 
 	// src = reference node
 	void shortestPath(int src);

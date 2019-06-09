@@ -15,6 +15,14 @@ Graph::Graph(int V)
 	this->m_distances = vector<double>(V);
 }
 
+void Graph::addEdges(conexao *conexoes, std::vector<double> weigths)
+{
+	for (int i = 0; i < weigths.size(); i++)
+	{
+		addEdge(conexoes[i].N1.Id,conexoes[i].N2.Id,weigths[i]);
+	}
+}
+
 void Graph::addEdge(int u, int v, long double w)
 {
 	adj[u].push_back(std::make_pair(v, w));

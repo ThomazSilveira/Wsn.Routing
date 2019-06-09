@@ -49,24 +49,24 @@ void InputClass::Entrada_1()
 	this->totalNodos = 5;
 
 	this->Nodos = new Nodo[this->totalNodos];
-	this->Nodos[0] = *new Nodo(*new Ponto(0.8, 2.2), '0');
-	this->Nodos[1] = *new Nodo(*new Ponto(2.2, 0.3), '1');
-	this->Nodos[2] = *new Nodo(*new Ponto(2.1, 4.3), '2');
-	this->Nodos[3] = *new Nodo(*new Ponto(5.2, 0.2), '3');
-	this->Nodos[4] = *new Nodo(*new Ponto(5.4, 4.2), '4');
+	this->Nodos[0] = *new Nodo(*new Ponto(0.8, 2.2), 0);
+	this->Nodos[1] = *new Nodo(*new Ponto(2.2, 0.3), 1);
+	this->Nodos[2] = *new Nodo(*new Ponto(2.1, 4.3), 2);
+	this->Nodos[3] = *new Nodo(*new Ponto(5.2, 0.2), 3);
+	this->Nodos[4] = *new Nodo(*new Ponto(5.4, 4.2), 4);
 
 	// Inicializa Conexoes
 	this->totalConexoes = 8;
 
 	this->Conexoes = new conexao[this->totalConexoes];
-	this->Conexoes[0] = *new conexao(Nodos[0].Coordenada, Nodos[1].Coordenada, -45);
-	this->Conexoes[1] = *new conexao(Nodos[0].Coordenada, Nodos[2].Coordenada, -5);
-	this->Conexoes[2] = *new conexao(Nodos[1].Coordenada, Nodos[2].Coordenada, -35);
-	this->Conexoes[3] = *new conexao(Nodos[1].Coordenada, Nodos[3].Coordenada, -25);
-	this->Conexoes[4] = *new conexao(Nodos[2].Coordenada, Nodos[4].Coordenada, -55);
-	this->Conexoes[5] = *new conexao(Nodos[3].Coordenada, Nodos[4].Coordenada, -65);
-	this->Conexoes[6] = *new conexao(Nodos[1].Coordenada, Nodos[4].Coordenada, -15);
-	this->Conexoes[7] = *new conexao(Nodos[2].Coordenada, Nodos[3].Coordenada, -5);
+	this->Conexoes[0] = *new conexao(Nodos[0], Nodos[1], -45);
+	this->Conexoes[1] = *new conexao(Nodos[0], Nodos[2], -5);
+	this->Conexoes[2] = *new conexao(Nodos[1], Nodos[2], -35);
+	this->Conexoes[3] = *new conexao(Nodos[1], Nodos[3], -25);
+	this->Conexoes[4] = *new conexao(Nodos[2], Nodos[4], -55);
+	this->Conexoes[5] = *new conexao(Nodos[3], Nodos[4], -65);
+	this->Conexoes[6] = *new conexao(Nodos[1], Nodos[4], -15);
+	this->Conexoes[7] = *new conexao(Nodos[2], Nodos[3], -5);
 }
 
 /* Grafo de 10 nodos esparços. Mapa com 2 raios de interferencia */
