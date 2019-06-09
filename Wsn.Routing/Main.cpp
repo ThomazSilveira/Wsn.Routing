@@ -339,14 +339,14 @@ InputClass DadosSinteticos1()
 	Ponto *n4 = new Ponto(5.4, 4.2);
 
 	vector<conexao> conexoes(8);
-	conexoes[0] = *new conexao(*c1, *n1);
-	conexoes[1] = *new conexao(*c1, *n2);
-	conexoes[2] = *new conexao(*n1, *n2);
-	conexoes[3] = *new conexao(*n1, *n3);
-	conexoes[4] = *new conexao(*n2, *n4);
-	conexoes[5] = *new conexao(*n3, *n4);
-	conexoes[6] = *new conexao(*n1, *n4);
-	conexoes[7] = *new conexao(*n2, *n3);
+	conexoes[0] = *new conexao(*c1, *n1, -5);
+	conexoes[1] = *new conexao(*c1, *n2, -5);
+	conexoes[2] = *new conexao(*n1, *n2, -5);
+	conexoes[3] = *new conexao(*n1, *n3, -5);
+	conexoes[4] = *new conexao(*n2, *n4, -5);
+	conexoes[5] = *new conexao(*n3, *n4, -5);
+	conexoes[6] = *new conexao(*n1, *n4, -5);
+	conexoes[7] = *new conexao(*n2, *n3, -5);
 
 }
 
@@ -382,6 +382,8 @@ int main(int argc, char *argv[])
 	/**/
 	input = InicializaValoresSinteticos(0);
 	/**/
+
+	input.Entrada_1();
 
 
 	for (int i = 0; i < linha; i++) {
@@ -419,14 +421,14 @@ int main(int argc, char *argv[])
 	Ponto *n4 = new Ponto(5.4, 4.2);
 
 	vector<conexao> conexoes(8);
-	conexoes[0] = *new conexao(*c1, *n1);
-	conexoes[1] = *new conexao(*c1, *n2);
-	conexoes[2] = *new conexao(*n1, *n2);
-	conexoes[3] = *new conexao(*n1, *n3);
-	conexoes[4] = *new conexao(*n2, *n4);
-	conexoes[5] = *new conexao(*n3, *n4);
-	conexoes[6] = *new conexao(*n1, *n4);
-	conexoes[7] = *new conexao(*n2, *n3);
+	conexoes[0] = *new conexao(*c1, *n1, -5);
+	conexoes[1] = *new conexao(*c1, *n2, -5);
+	conexoes[2] = *new conexao(*n1, *n2, -5);
+	conexoes[3] = *new conexao(*n1, *n3, -5);
+	conexoes[4] = *new conexao(*n2, *n4, -5);
+	conexoes[5] = *new conexao(*n3, *n4, -5);
+	conexoes[6] = *new conexao(*n1, *n4, -5);
+	conexoes[7] = *new conexao(*n2, *n3, -5);
 
 	
 

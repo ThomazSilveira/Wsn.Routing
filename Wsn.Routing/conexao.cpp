@@ -1,18 +1,29 @@
 #include "conexao.h"
 
 
+conexao::conexao()
+{
+}
 
-conexao::conexao(Ponto p1, Ponto p2)
+conexao::~conexao()
+{
+}
+
+conexao::conexao(Ponto p1, Ponto p2, char energia)
 {
 	P1 = p1;
 	P2 = p2;
 }
 
-conexao::conexao()
+char conexao::getEnergia()
 {
+	return this->energia;
 }
 
-
-conexao::~conexao()
+void conexao::setEnergia(char energia)
 {
+	// Valor de RSSI em dB
+	if (energia >= -90 && energia <= 0) {
+		this->energia = energia;
+	}
 }

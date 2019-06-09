@@ -5,11 +5,19 @@
 class InputClass
 {
 public:
+	int linha;
+	int coluna;
+	int totalNodos;
+	int totalConexoes;
+
 	double **MatrizMapa;
 	conexao *Conexoes;
 	Nodo *Nodos;
+
 	InputClass();
-	InputClass(double **matriz,conexao *conexoes,Nodo *nodos);
 	~InputClass();
+
+	void Entrada_1();
+	void Entrada_2();
 };
 
