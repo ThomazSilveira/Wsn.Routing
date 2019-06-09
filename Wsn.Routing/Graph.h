@@ -8,15 +8,18 @@
 #include <iomanip>
 #include <string>
 #include "conexao.h"
-#define INF 0x3f3f3f3f
 
-typedef std::pair<int, long double> iPair;
+#define INF numeric_limits<long double>::max()
+
+using namespace std;
+
+typedef pair<int, long double> iPair;
 
 class Graph
 {
 	int V; // Total Vertices
 
-	std::list<iPair> *adj; // List of edges
+	list<iPair> *adj; // List of edges
 
 public:
 
@@ -24,14 +27,14 @@ public:
 
 	void addEdge(int u, int v, long double w);
 
-	void addEdges(conexao *conexoes, std::vector<double> weigths);
+	void addEdges(conexao *conexoes, vector<double> weigths);
 
 	// src = reference node
 	void shortestPath(int src);
 
-	std::vector<std::string> GetPathNodes();
+	vector<string> GetPathNodes();
 
-	std::vector<std::string> GetDistances();
+	vector<string> GetDistances();
 
 	void PrintDistances();
 
@@ -39,7 +42,7 @@ public:
 
 private:
 
-	std::vector<std::string> m_pathNodes;
-	std::vector<double> m_distances;
+	vector<string> m_pathNodes;
+	vector<double> m_distances;
 
 };

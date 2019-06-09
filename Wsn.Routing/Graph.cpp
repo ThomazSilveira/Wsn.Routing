@@ -5,17 +5,15 @@
 #include "Graph.h"
 #include <string>
 
-using namespace std;
-
 Graph::Graph(int V)
 {
 	this->V = V;
-	adj = new std::list<iPair>[V];
+	adj = new list<iPair>[V];
 	this->m_pathNodes = vector<string>(V);
 	this->m_distances = vector<double>(V);
 }
 
-void Graph::addEdges(conexao *conexoes, std::vector<double> weigths)
+void Graph::addEdges(conexao *conexoes, vector<double> weigths)
 {
 	for (int i = 0; i < weigths.size(); i++)
 	{
@@ -25,22 +23,22 @@ void Graph::addEdges(conexao *conexoes, std::vector<double> weigths)
 
 void Graph::addEdge(int u, int v, long double w)
 {
-	adj[u].push_back(std::make_pair(v, w));
-	adj[v].push_back(std::make_pair(u, w));
+	adj[u].push_back(make_pair(v, w));
+	adj[v].push_back(make_pair(u, w));
 }
 
 void Graph::shortestPath(int src)
 {
 #ifdef _DEBUG
-	std::cout << endl << "DEBUG MODE, SHOW ALL DISTANCES BELOW: ";
+	cout << endl << "DEBUG MODE, SHOW ALL DISTANCES BELOW: ";
 #endif
 
-	std::priority_queue< iPair, std::vector <iPair>, std::greater<iPair> > pq;
+	priority_queue< iPair, vector <iPair>, greater<iPair> > pq;
 
-	std::vector<long double> dist(V, INF);
+	vector<long double> dist(V, INF);
 
 	// Initialize priority queue values all with 0 distances.
-	pq.push(std::make_pair(0, src));
+	pq.push(make_pair(0, src));
 
 	dist[src] = 0;
 
@@ -56,11 +54,11 @@ void Graph::shortestPath(int src)
 		// has to be done this way to keep the vertices 
 		// sorted distance (distance must be first item 
 		// in pair) 
-		int u = pq.top().second;
+		int u = pq.top().first;
 		pq.pop();
 
 		// 'i' is used to get all adjacent vertices of a vertex 
-		std::list<iPair>::iterator i;
+		list<iPair>::iterator i;
 
 		for (i = adj[u].begin(); i != adj[u].end(); ++i)
 		{
@@ -74,11 +72,11 @@ void Graph::shortestPath(int src)
 			{
 				// Updating distance of v 
 				dist[v] = dist[u] + weight;
-				pq.push(std::make_pair(dist[v], v));
+				pq.push(make_pair(v, dist[v]));
 				m_pathNodes[v] = to_string(u) + "-" + to_string(v);
 
 #ifdef _DEBUG
-				std::cout << endl << u << "\t" << v << "\t" << weight << "\t";
+				cout << endl << u << "\t" << v << "\t" << weight << "\t";
 #endif
 
 			}
@@ -93,41 +91,41 @@ void Graph::shortestPath(int src)
 	}
 
 #ifdef _DEBUG
-	std::cout << endl;
+	cout << endl;
 #endif
 
 
 }
 
-std::vector<std::string> Graph::GetPathNodes()
+vector<string> Graph::GetPathNodes()
 {
 	return this->m_pathNodes;
 }
 
-std::vector<std::string> Graph::GetDistances()
+vector<string> Graph::GetDistances()
 {
-	return std::vector<std::string>();
+	return vector<string>();
 }
 
 void Graph::PrintDistances()
 {
-	std::cout << endl;
+	cout << endl;
 
 	for (int i = 0; i < V; ++i) {
-		std::cout << m_distances[i] << endl;
+		cout << m_distances[i] << endl;
 	}
 
-	std::cout << endl;
+	cout << endl;
 }
 
 void Graph::PrintPathNodes()
 {
-	std::cout << endl;
+	cout << endl;
 
 	for (int i = 0; i < V; ++i) {
-		std::cout << m_pathNodes[i] << endl;
+		cout << m_pathNodes[i] << endl;
 	}
 
-	std::cout << endl;
+	cout << endl;
 }
 
