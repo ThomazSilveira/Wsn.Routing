@@ -84,7 +84,7 @@ void Graph::shortestPath(int src)
 			// Get vertex label and weight of 
 			// current adjacent of u.
 			int v = (*i).first;
-			long double weight = (*i).second;
+			double weight = (*i).second;
 
 			//  If there is shorted path to v through u. 
 			if (dist[v] > dist[u] + weight)

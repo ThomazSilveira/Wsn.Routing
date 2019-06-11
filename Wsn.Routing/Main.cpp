@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 {
 	InputClass input;
 
-	input.Entrada_1();
+	//input.Entrada_1();
+	input.Entrada_2();
 
 	Calculadora calculadora;
 
