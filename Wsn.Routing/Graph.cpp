@@ -5,6 +5,14 @@
 #include "Graph.h"
 #include <string>
 
+void Graph::MapeiaSaidaParaConexoes()
+{
+	for (int i = 1; i < m_pathNodes.size(); i++)
+	{
+		m_pathNodes[i];
+	}
+}
+
 Graph::Graph(int V)
 {
 	this->V = V;
@@ -15,9 +23,12 @@ Graph::Graph(int V)
 
 void Graph::addEdges(conexao *conexoes, vector<double> weigths)
 {
+	this->Conexoes = vector<conexao>(weigths.size());
+
 	for (int i = 0; i < weigths.size(); i++)
 	{
-		addEdge(conexoes[i].N1.Id,conexoes[i].N2.Id,weigths[i]);
+		Conexoes[i] = conexoes[i];
+		addEdge(conexoes[i].N1.Id, conexoes[i].N2.Id, weigths[i]);
 	}
 }
 
@@ -37,12 +48,20 @@ void Graph::shortestPath(int src)
 
 	vector<long double> dist(V, INF);
 
+	Path paths = Path(V);
+
 	// Initialize priority queue values all with 0 distances.
 	pq.push(make_pair(0, src));
 
 	dist[src] = 0;
 
 	m_pathNodes[0] = to_string(0);
+
+	//paths.insertPath(0, *new conPair(0, *new list<conexao>()));
+
+	//paths.Paths.insert(paths.Paths.begin(), make_pair(0, Conexoes[0]));
+	//push_back(make_pair(0, Conexoes[0])); //.insert(0,make_pair(0,Conexoes[0]));
+
 
 	// Looping till priority queue becomes empty 
 	// (or all distances are not finalized)
@@ -74,6 +93,9 @@ void Graph::shortestPath(int src)
 				dist[v] = dist[u] + weight;
 				pq.push(make_pair(v, dist[v]));
 				m_pathNodes[v] = to_string(u) + "-" + to_string(v);
+				conexao *con = LocalizaConexao((char)u, (char)v);
+				con->setWeigth(weight);
+				paths.insereConexaoEm(v, *con);
 
 #ifdef _DEBUG
 				cout << endl << u << "\t" << v << "\t" << weight << "\t";
@@ -81,8 +103,6 @@ void Graph::shortestPath(int src)
 
 			}
 		}
-
-		/*after calculated all better adjacent node, it's time to calculaing the complete rout*/
 
 	}
 
@@ -94,6 +114,8 @@ void Graph::shortestPath(int src)
 	cout << endl;
 #endif
 
+	/*apos finalizar cria o caminho total*/
+	paths.caminhoCompleto(0);
 
 }
 
@@ -127,5 +149,17 @@ void Graph::PrintPathNodes()
 	}
 
 	cout << endl;
+}
+
+conexao * Graph::LocalizaConexao(char n1Id, char n2Id)
+{
+	for (int i = 0; i < Conexoes.size(); i++)
+	{
+
+		if (Conexoes[i].N1.Id == n1Id && Conexoes[i].N2.Id == n2Id)
+			return &Conexoes[i];
+	}
+
+	return nullptr;
 }
 

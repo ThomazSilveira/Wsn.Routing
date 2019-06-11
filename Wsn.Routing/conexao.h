@@ -5,7 +5,7 @@
 class conexao
 {
 	char energia;
-
+	double weigth;
 public:
 	Nodo N1;
 	Nodo N2;
@@ -16,5 +16,8 @@ public:
 
 	char getEnergia();
 	void setEnergia(char energia);
+
+	double getWeigth();
+	void setWeigth(double weigth);
 };
 

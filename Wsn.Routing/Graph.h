@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <string>
 #include "conexao.h"
+#include "Path.h"
 
 #define INF numeric_limits<long double>::max()
 
@@ -20,6 +21,10 @@ class Graph
 	int V; // Total Vertices
 
 	list<iPair> *adj; // List of edges
+
+	vector<conexao> Conexoes;
+
+	void MapeiaSaidaParaConexoes();
 
 public:
 
@@ -39,6 +44,8 @@ public:
 	void PrintDistances();
 
 	void PrintPathNodes();
+
+	conexao *LocalizaConexao(char n1Id, char n2Id);
 
 private:
 

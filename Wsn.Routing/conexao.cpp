@@ -27,3 +27,13 @@ void conexao::setEnergia(char energia)
 		this->energia = energia;
 	}
 }
+
+double conexao::getWeigth()
+{
+	return this->weigth;
+}
+
+void conexao::setWeigth(double weigth)
+{
+	this->weigth = weigth;
+}

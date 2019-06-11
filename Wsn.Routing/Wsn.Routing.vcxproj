@@ -121,6 +121,8 @@
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="OutputClass.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="Ponto.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +131,8 @@
     <ClInclude Include="Graph.h" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="OutputClass.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="Ponto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
