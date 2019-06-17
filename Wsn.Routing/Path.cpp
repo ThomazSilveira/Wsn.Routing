@@ -1,6 +1,8 @@
 #include "Path.h"
 
-void Path::caminhoCompleto(char index)
+
+
+void Path::caminhoCompleto(int index)
 {
 	/*cria o caminho completo de cada rota*/
 
@@ -82,6 +84,10 @@ Path::Path(int V)
 		(*it).first = std::distance(Paths->begin(), it);
 		(*it).second = *new list<conexao>();
 	}
+}
+
+Path::Path()
+{
 }
 
 

@@ -27,7 +27,7 @@ void Graph::addEdges(conexao *conexoes, vector<double> weigths)
 
 	for (int i = 0; i < weigths.size(); i++)
 	{
-		Conexoes[i] = conexoes[i];
+		this->Conexoes[i] = conexoes[i];
 		addEdge(conexoes[i].N1.Id, conexoes[i].N2.Id, weigths[i]);
 	}
 }
@@ -38,7 +38,7 @@ void Graph::addEdge(int u, int v, long double w)
 	adj[v].push_back(make_pair(u, w));
 }
 
-void Graph::shortestPath(int src)
+OutputClass Graph::shortestPath(int src)
 {
 #ifdef _DEBUG
 	cout << endl << "DEBUG MODE, SHOW ALL DISTANCES BELOW: ";
@@ -93,7 +93,7 @@ void Graph::shortestPath(int src)
 				dist[v] = dist[u] + weight;
 				pq.push(make_pair(v, dist[v]));
 				m_pathNodes[v] = to_string(u) + "-" + to_string(v);
-				conexao *con = LocalizaConexao((char)u, (char)v);
+				conexao *con = LocalizaConexao(u, v);
 				con->setWeigth(weight);
 				paths.insereConexaoEm(v, *con);
 
@@ -117,6 +117,11 @@ void Graph::shortestPath(int src)
 	/*apos finalizar cria o caminho total*/
 	paths.caminhoCompleto(0);
 
+	OutputClass output = *new OutputClass();
+	output.distances = m_distances;
+	output.paths = paths;
+
+	return output;
 }
 
 vector<string> Graph::GetPathNodes()
@@ -151,7 +156,7 @@ void Graph::PrintPathNodes()
 	cout << endl;
 }
 
-conexao * Graph::LocalizaConexao(char n1Id, char n2Id)
+conexao * Graph::LocalizaConexao(int n1Id, int n2Id)
 {
 	for (int i = 0; i < Conexoes.size(); i++)
 	{

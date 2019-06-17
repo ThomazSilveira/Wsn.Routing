@@ -13,6 +13,7 @@ public:
 	conexao();
 	~conexao();
 	conexao(Nodo n1, Nodo n2, char energia);
+	conexao(Nodo *n1, Nodo *n2, char energia);
 
 	char getEnergia();
 	void setEnergia(char energia);

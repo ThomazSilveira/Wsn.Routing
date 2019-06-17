@@ -9,6 +9,7 @@
 #include <string>
 #include "conexao.h"
 #include "Path.h"
+#include "OutputClass.h"
 
 #define INF numeric_limits<long double>::max()
 
@@ -35,7 +36,7 @@ public:
 	void addEdges(conexao *conexoes, vector<double> weigths);
 
 	// src = reference node
-	void shortestPath(int src);
+	OutputClass shortestPath(int src);
 
 	vector<string> GetPathNodes();
 
@@ -45,7 +46,7 @@ public:
 
 	void PrintPathNodes();
 
-	conexao *LocalizaConexao(char n1Id, char n2Id);
+	conexao *LocalizaConexao(int n1Id, int n2Id);
 
 private:
 

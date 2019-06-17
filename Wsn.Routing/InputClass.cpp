@@ -1,5 +1,4 @@
 #include "InputClass.h"
-#include <algorithm>
 
 InputClass::InputClass()
 {
@@ -7,6 +6,144 @@ InputClass::InputClass()
 
 InputClass::~InputClass()
 {
+}
+
+void InputClass::PrintNodes()
+{
+	std::cout << "Nodes " << std::endl;
+	std::cout << "Qtd nodes " << this->totalNodos << std::endl;
+
+	for (int i = 0; i < this->totalNodos; i++)
+		std::cout << this->Nodos[i].Id << " " << this->Nodos[i].Coordenada.X << " " << this->Nodos[i].Coordenada.Y << std::endl;
+
+}
+
+void InputClass::PrintConexoes()
+{
+	std::cout << "Conexoes " << std::endl;
+	std::cout << "Qtd conexoes " << this->totalConexoes << std::endl;
+
+	for (int i = 0; i < this->totalConexoes; i++)
+		std::cout << this->Conexoes[i].N1.Id << " " << this->Conexoes[i].N2.Id << " " << this->Conexoes[i].getEnergia() << " " << this->Conexoes[i].getWeigth() << std::endl;
+
+}
+
+void InputClass::PrintMapa()
+{
+	std::cout << "Matriz" << std::endl;
+	std::cout << "Qtd colunas X linhas " << this->coluna << " X " << this->linha << std::endl;
+
+
+	for (int i = 0; i < this->coluna; i++)
+	{
+		for (int j = 0; j < this->linha; j++)
+			std::cout << this->MatrizMapa[j][i];
+		std::cout << endl;
+	}
+
+}
+
+void InputClass::LeRede(string s)
+{
+	std::ifstream infile(s);
+
+	if (!infile)
+		return;
+
+	string linha;
+
+	getline(infile, linha);
+	istringstream str(linha);
+	int totalNodos;
+	str >> totalNodos;
+
+	this->totalNodos = totalNodos;
+	this->Nodos = new Nodo[this->totalNodos];
+
+	for (int i = 0; i < totalNodos; i++)
+	{
+		getline(infile, linha);
+		istringstream str(linha);
+		int id;
+		double posX, posY;
+		int energia;
+		if (!(str >> id >> posX >> posY >> energia)) { break; }
+		this->Nodos[i] = *new Nodo(*new Ponto(posX, posY), id);
+	}
+
+	PrintNodes();
+
+	getline(infile, linha);
+	istringstream str1(linha);
+	int totalConexoes;
+	str1 >> totalConexoes;
+
+	this->totalConexoes = totalConexoes;
+	this->Conexoes = new conexao[this->totalConexoes];
+
+	for (int i = 0; i < this->totalConexoes; i++)
+	{
+		getline(infile, linha);
+		istringstream str(linha);
+		int n0, n1;
+		int energia;
+		if (!(str >> n0 >> n1 >> energia)) { break; }
+		this->Conexoes[i] = *new conexao(Nodos->findNode(this->Nodos, this->totalNodos, n0), Nodos->findNode(this->Nodos, this->totalNodos, n1), energia);
+	}
+
+	PrintConexoes();
+
+	infile.close();
+
+}
+
+void InputClass::LeMapa(string s)
+{
+	std::ifstream infile(s);
+
+	if (!infile)
+		return;
+
+	string linha;
+
+	getline(infile, linha);
+	istringstream str(linha);
+	int col = 0;
+	int lin = 0;
+	str >> col >> lin;
+
+	// Dados da Matriz
+	this->linha = lin;
+	this->coluna = col;
+
+	// Inicializa Linhas da Matriz
+	this->MatrizMapa = new double*[this->linha];
+
+	// Inicializa Colunas da Matriz
+	for (int i = 0; i < this->linha; ++i) {
+		this->MatrizMapa[i] = new double[this->coluna];
+	}
+
+	for (int i = 0; i < this->coluna; i++)
+	{
+		getline(infile, linha);
+		istringstream str(linha);
+		double element;
+		for (int j = 0; j < this->linha; j++)
+		{
+			if (!(str >> element)) { break; }
+			this->MatrizMapa[j][i] = element;
+		}
+
+		//this.MatrizMapa 
+
+
+		//this->Nodos[i] = *new Nodo(*new Ponto(posX, posY), id);
+	}
+
+	PrintMapa();
+
+	infile.close();
 }
 
 /*  Grafo com 5 nodos e leve simetria da posicao dos nodos. Mapa com 2 raios de interferencia */
@@ -60,13 +197,13 @@ void InputClass::Entrada_1()
 
 	this->Conexoes = new conexao[this->totalConexoes];
 	this->Conexoes[0] = *new conexao(Nodos[0], Nodos[1], -45);
-	this->Conexoes[1] = *new conexao(Nodos[0], Nodos[2], -5); 
+	this->Conexoes[1] = *new conexao(Nodos[0], Nodos[2], -5);
 	this->Conexoes[2] = *new conexao(Nodos[1], Nodos[2], -35);
 	this->Conexoes[3] = *new conexao(Nodos[1], Nodos[3], -25);
 	this->Conexoes[4] = *new conexao(Nodos[2], Nodos[4], -55);
 	this->Conexoes[5] = *new conexao(Nodos[3], Nodos[4], -65);
 	this->Conexoes[6] = *new conexao(Nodos[1], Nodos[4], -15);
-	this->Conexoes[7] = *new conexao(Nodos[2], Nodos[3], -5); 
+	this->Conexoes[7] = *new conexao(Nodos[2], Nodos[3], -5);
 
 	this->Conexoes[8] = *new conexao(Nodos[0], Nodos[3], -45);
 	this->Conexoes[9] = *new conexao(Nodos[0], Nodos[4], -45);
@@ -222,25 +359,25 @@ void InputClass::Entrada_2()
 	this->Conexoes[21] = *new conexao(Nodos[2], Nodos[7], -5);
 	this->Conexoes[22] = *new conexao(Nodos[2], Nodos[8], -5);
 	this->Conexoes[23] = *new conexao(Nodos[2], Nodos[9], -5);
-				   
+
 	this->Conexoes[24] = *new conexao(Nodos[3], Nodos[4], -5);
 	this->Conexoes[25] = *new conexao(Nodos[3], Nodos[5], -5);
 	this->Conexoes[26] = *new conexao(Nodos[3], Nodos[6], -5);
 	this->Conexoes[27] = *new conexao(Nodos[3], Nodos[7], -5);
 	this->Conexoes[28] = *new conexao(Nodos[3], Nodos[8], -5);
 	this->Conexoes[29] = *new conexao(Nodos[3], Nodos[9], -5);
-				   
+
 	this->Conexoes[30] = *new conexao(Nodos[4], Nodos[5], -5);
 	this->Conexoes[31] = *new conexao(Nodos[4], Nodos[6], -5);
 	this->Conexoes[32] = *new conexao(Nodos[4], Nodos[7], -5);
 	this->Conexoes[33] = *new conexao(Nodos[4], Nodos[8], -5);
 	this->Conexoes[34] = *new conexao(Nodos[4], Nodos[9], -5);
-				   
+
 	this->Conexoes[35] = *new conexao(Nodos[5], Nodos[6], -5);
 	this->Conexoes[36] = *new conexao(Nodos[5], Nodos[7], -5);
 	this->Conexoes[37] = *new conexao(Nodos[5], Nodos[8], -5);
 	this->Conexoes[38] = *new conexao(Nodos[5], Nodos[9], -5);
-				   
+
 	this->Conexoes[39] = *new conexao(Nodos[6], Nodos[7], -5);
 	this->Conexoes[40] = *new conexao(Nodos[6], Nodos[8], -5);
 	this->Conexoes[41] = *new conexao(Nodos[6], Nodos[9], -5);

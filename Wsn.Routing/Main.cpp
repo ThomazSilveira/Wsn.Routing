@@ -3,6 +3,7 @@
 #include "Graph.h"
 #include "InputClass.h"
 #include "Calculadora.h"
+#include <fstream> 
 
 using namespace std;
 
@@ -11,8 +12,10 @@ int main(int argc, char *argv[])
 {
 	InputClass input;
 
-	//input.Entrada_1();
-	input.Entrada_2();
+	input.LeRede("Inputs\\Exemplo1\\InputEstruturaRede.txt");
+	input.LeMapa("Inputs\\Exemplo1\\InputMapa.txt");
+
+	/*TODO: fazer a verificação de cada conexao quanto a superar o threshold de distacia.*/
 
 	Calculadora calculadora;
 
@@ -25,19 +28,24 @@ int main(int argc, char *argv[])
 
 	// Encontra menores caminhos
 	// Partindo do Nodo 0
-	g.shortestPath(0);
+
+	OutputClass output;
+	output = g.shortestPath(0);
 
 	g.PrintPathNodes();
 
 	g.PrintDistances();
 
-	char h;
-	cin >> h;
+
 
 	/*Todo: nodo se afastando*/
 
 	/*Todo: nodo voltando*/
 
-	/*Todo: fazer classe de entrada e de saida.*/
+	/*Todo: saida.*/
+	output.EscreveSaida("Inputs\\Exemplo1\\Output.txt");
 
+
+	char h;
+	cin >> h;
 }

@@ -15,6 +15,12 @@ conexao::conexao(Nodo n1, Nodo n2, char energia)
 	this->N2 = n2;
 }
 
+conexao::conexao(Nodo * n1, Nodo * n2, char energia)
+{
+	this->N1 = *n1;
+	this->N2 = *n2;
+}
+
 char conexao::getEnergia()
 {
 	return this->energia;
