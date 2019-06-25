@@ -12,12 +12,23 @@ int main(int argc, char *argv[])
 {
 	InputClass input;
 
-	input.LeRede("Inputs\\Exemplo1\\InputEstruturaRede.txt");
-	input.LeMapa("Inputs\\Exemplo1\\InputMapa.txt");
+	input.LeRede("Inputs\\Exemplo2\\InputEstruturaRede.txt");
+	input.LeMapa("Inputs\\Exemplo2\\InputMapa.txt");
+
 
 	/*TODO: fazer a verificação de cada conexao quanto a superar o threshold de distacia.*/
 
 	Calculadora calculadora;
+
+	vector<double> distancias(input.totalConexoes);
+
+	vector<conexao> conexoesDist(input.totalConexoes);
+	for (int i = 0; i < input.totalConexoes; i++)
+	{
+		conexoesDist[i] = input.Conexoes[i];
+	}
+	
+	distancias = calculadora.CalculaDistancias(conexoesDist);
 
 	vector<double> sigmas = calculadora.CalculaSigmas(input);
 
@@ -43,7 +54,7 @@ int main(int argc, char *argv[])
 	/*Todo: nodo voltando*/
 
 	/*Todo: saida.*/
-	output.EscreveSaida("Inputs\\Exemplo1\\Output.txt");
+	output.EscreveSaida("Inputs\\Exemplo2\\Output.txt");
 
 
 	char h;

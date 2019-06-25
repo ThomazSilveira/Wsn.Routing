@@ -9,8 +9,9 @@ public:
 	static void imprimeNodes(Nodo * nodos, int size);
 	Ponto Coordenada;
 	int Id;
+	double bateria;
 	Nodo();
-	Nodo(Ponto ponto, int id);
+	Nodo(Ponto ponto, int id, double bateria);
 	~Nodo();
 };
 

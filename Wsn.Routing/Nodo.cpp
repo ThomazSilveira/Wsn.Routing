@@ -25,10 +25,11 @@ Nodo::Nodo()
 	this->Id = '-';
 }
 
-Nodo::Nodo(Ponto ponto, int id)
+Nodo::Nodo(Ponto ponto, int id,double bateria)
 {
 	this->Coordenada = ponto;
 	this->Id = id;
+	this->bateria = bateria;
 }
 
 Nodo::~Nodo()

@@ -68,7 +68,7 @@ void InputClass::LeRede(string s)
 		double posX, posY;
 		int energia;
 		if (!(str >> id >> posX >> posY >> energia)) { break; }
-		this->Nodos[i] = *new Nodo(*new Ponto(posX, posY), id);
+		this->Nodos[i] = *new Nodo(*new Ponto(posX, posY), id, energia);
 	}
 
 	PrintNodes();
@@ -147,7 +147,7 @@ void InputClass::LeMapa(string s)
 }
 
 /*  Grafo com 5 nodos e leve simetria da posicao dos nodos. Mapa com 2 raios de interferencia */
-void InputClass::Entrada_1()
+/*void InputClass::Entrada_1()
 {
 	// Dados da Matriz
 	this->linha = 6;
@@ -208,9 +208,9 @@ void InputClass::Entrada_1()
 	this->Conexoes[8] = *new conexao(Nodos[0], Nodos[3], -45);
 	this->Conexoes[9] = *new conexao(Nodos[0], Nodos[4], -45);
 
-}
+}*/
 
-void InputClass::Entrada_2()
+/*void InputClass::Entrada_2()
 {
 	// Dados da Matriz
 	this->linha = 30;
@@ -386,4 +386,4 @@ void InputClass::Entrada_2()
 	this->Conexoes[43] = *new conexao(Nodos[7], Nodos[9], -5);
 
 	this->Conexoes[44] = *new conexao(Nodos[8], Nodos[9], -5);
-}
+}*/

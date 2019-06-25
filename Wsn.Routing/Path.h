@@ -15,7 +15,6 @@ public:
 
 
 	list<conPair> *Paths;
-	void EscreveSaida(string v);
 	void caminhoCompleto(int index);
 	void insereConexaoEm(int index, conexao conexao);
 	void insertPath(int pos,conPair pair);

@@ -137,9 +137,9 @@ vector<Ponto> Calculadora::CalculaPontosEmXY2(Ponto P1, Ponto P2, double a, doub
 	return retorno;
 }
 
-struct myclass {
+struct ClassOrder {
 	bool operator() (Ponto i, Ponto j) { return (i.X < j.X); }
-} myobject;
+} OrderObj;
 
 vector<double> Calculadora::CalculaDistancias(vector <Ponto> pontos)
 {
@@ -177,28 +177,6 @@ vector<Ponto> Calculadora::CalculaIndiciesDaMatriz(vector <Ponto> pontos)
 		distancias[i] = *new Ponto(valX, valY);
 	}
 
-	//for (int i = 1; i < distancias.size() -1; i++)
-	//{
-	//	/*se sim entao tem erro*/
-	//	if (distancias[i].X == distancias[i + 1].X && distancias[i].Y == distancias[i + 1].Y)
-	//	{
-	//		/*descobrir se eh em X ou em Y*/
-	//		if (distancias[i - 1].X == distancias[i].X) /*tem erro no Y*/
-	//		{
-	//			if (distancias[i - 1].Y > distancias[i].Y)
-	//				distancias[i].Y = distancias[i].Y + 1;
-	//			else
-	//				distancias[i].Y = distancias[i].Y - 1;
-	//		}
-	//		else /*tem erro no X*/
-	//		{
-	//			if (distancias[i - 1].X > distancias[i].X)
-	//				distancias[i].X = distancias[i].X + 1;
-	//			else
-	//				distancias[i].X = distancias[i].X - 1;
-	//		}
-	//	}
-	//}
 
 	for (int i = 1; i < distancias.size() - 1; i++)
 	{
@@ -271,11 +249,11 @@ double Calculadora::CalculaSigma(Nodo n1, Nodo n2)
 	Pontos = CalculaPontosEmXY(P1, P2, a, b);
 
 	/*Ordena o vetor pelos valores de X*/
-	std::sort(Pontos.begin(), Pontos.end(), myobject);
+	std::sort(Pontos.begin(), Pontos.end(), OrderObj);
 
 	/*calculo de para cada dois pontos da lista calcular sqrt( abs(p1.x - p2.x) + abs( p1.y - p2.y) ), e colocar em um vetor */
-	vector<double> distancias;
-	distancias = CalculaDistancias(Pontos);
+	vector<double> dist;
+	dist = CalculaDistancias(Pontos);
 
 	/*indicies da matriz que deve ser pego o rssi para cada ponto em quest�o, e colocar em um vetor*/
 	vector<Ponto> indiciesDaMatriz;
@@ -283,20 +261,23 @@ double Calculadora::CalculaSigma(Nodo n1, Nodo n2)
 	//vector<Ponto> indiciesDaMatrizCorrigidos;
 	//indiciesDaMatrizCorrigidos = CorrigeIndiciesDaMatriz(indiciesDaMatriz);
 	/*pegar na matriz os valores de rssi dos indicies definidos no vetor indiciesDaMatriz*/
-	vector<double> rssis(indiciesDaMatriz.size());
+	vector<double> permeability(indiciesDaMatriz.size());
 	for (int i = 0; i < indiciesDaMatriz.size(); i++)
 	{
-		rssis[i] = m_input.MatrizMapa[(int)indiciesDaMatriz[i].X][(int)indiciesDaMatriz[i].Y];
+		permeability[i] = m_input.MatrizMapa[(int)indiciesDaMatriz[i].X][(int)indiciesDaMatriz[i].Y];
 	}
+
+	double bateria = 0.0;
+	bateria = ((100 - n1.bateria) / 100) + 1;
 
 	/*com o vetor dos indicies e o vetor dos rssi's realizar o calculo final do coeficiente.*/
 	double sigma = 0.0;
-	for (int i = 0; i < distancias.size(); i++)
+	for (int i = 0; i < dist.size(); i++)
 	{
-		sigma += distancias[i] * rssis[i];
+		sigma += dist[i] * permeability[i];
 	}
 
-	return sigma;
+	return sigma * bateria;
 }
 
 vector<double> Calculadora::CalculaSigmas(InputClass input)
